@@ -2,6 +2,7 @@ import { EventEmitter } from "events";
 import WebSocket, { WebSocketServer } from "ws";
 import { wsServerPort } from "@common/env";
 import { requestTransform, responseTransform, isValid, CMD } from "@common/ws";
+import logger from "../logger";
 /**
  * WS服务器，单例模式，继承自events.EventEmitter
  */
@@ -50,7 +51,7 @@ export class WSServer extends EventEmitter {
           throw new Error("错误的数据类型");
         }
         if (data.cmd !== CMD.PING) {
-          console.log("收到指令:", data.cmd);
+          logger.log("收到指令:", data.cmd);
           this.emit(data.cmd, ws, data);
         }
       });
