@@ -7,14 +7,14 @@ export default {
   // 发送请求之前
   *beforeSendRequest(requestDetail: RequestDetail) {
     console.log("发送http请求:", requestDetail.url);
-    return new Promise((resolve, reject) => {
+    yield new Promise((resolve, reject) => {
       resolve(null);
     });
   },
   // 处理https请求发送前
   *beforeDealHttpsRequest(requestDetail: RequestDetail) {
     console.log("发送https请求:", requestDetail.url);
-    return new Promise((resolve, reject) => {
+    yield new Promise((resolve, reject) => {
       // 返回true才会配置密钥,解析数据,false则只是流量转发
       resolve(false);
     });
@@ -50,19 +50,20 @@ export default {
         responseData: JSON.parse(responseDetail.response.body),
       })
     );
-    return new Promise((resolve, reject) => {
+    yield new Promise((resolve, reject) => {
       resolve(null);
     });
   },
   // 请求过程中发生错误的回调
   *onError(requestDetail: RequestDetail, error: Error) {
     console.log("发送http请求错误:", requestDetail.url, error);
-    return new Promise((resolve, reject) => {
+    yield new Promise((resolve, reject) => {
       resolve(null);
     });
   },
   // 与目标HTTPS服务器建立连接的过程中，如果发生错误
   *onConnectError(requestDetail: RequestDetail, error: Error) {
     console.log("发送https请求错误:", requestDetail.url, error);
+    yield;
   },
 };
