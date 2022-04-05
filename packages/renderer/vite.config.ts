@@ -1,3 +1,4 @@
+import path from "path";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import resolve from "vite-plugin-resolve";
@@ -9,7 +10,9 @@ import AutoImport from "unplugin-auto-import/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import pkg from "../../package.json";
 
-const GLOBAL_SCSS_PATH = 'src/assets/style/variables.scss'
+const GLOBAL_SCSS_PATH = "src/assets/style/variables.scss";
+const COMMON_PATH = path.join(__dirname, "../common/");
+const RENDERER_PATH = path.join(__dirname, "../renderer/");
 // https://vitejs.dev/config/
 export default defineConfig({
   mode: process.env.NODE_ENV,
@@ -38,6 +41,10 @@ export default defineConfig({
     WindiCSS(),
   ],
   base: "./",
+  alias: {
+    "@": RENDERER_PATH,
+    "@common": COMMON_PATH,
+  },
   build: {
     sourcemap: true,
     outDir: "../../dist/renderer",

@@ -1,24 +1,29 @@
-import { builtinModules } from 'module'
-import { defineConfig } from 'vite'
-import pkg from '../../package.json'
+import path from "path";
+import { builtinModules } from "module";
+import { defineConfig } from "vite";
+import pkg from "../../package.json";
+const COMMON_PATH = path.join(__dirname, "../common/");
 
 export default defineConfig({
   root: __dirname,
+  alias: {
+    "@common": COMMON_PATH,
+  },
   build: {
-    outDir: '../../dist/main',
+    outDir: "../../dist/main",
     lib: {
-      entry: 'index.ts',
-      formats: ['cjs'],
-      fileName: () => '[name].cjs',
+      entry: "index.ts",
+      formats: ["cjs"],
+      fileName: () => "[name].cjs",
     },
-    minify: process.env./* from mode option */NODE_ENV === 'production',
+    minify: process.env./* from mode option */ NODE_ENV === "production",
     sourcemap: true,
     rollupOptions: {
       external: [
-        'electron',
+        "electron",
         ...builtinModules,
-        ...Object.keys(pkg.dependencies || {}),
+        ...Object.keys((pkg as any).dependencies || {}),
       ],
     },
   },
-})
+});
