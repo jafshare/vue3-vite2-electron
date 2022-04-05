@@ -9,10 +9,13 @@ import AutoImport from "unplugin-auto-import/vite";
 // import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import pkg from "../../package.json";
-
-const GLOBAL_SCSS_PATH = "src/assets/style/variables.scss";
+// 这里最好用别名设置路径，vite会自动转换，否则相对或者绝对都会导致报错
+const GLOBAL_SCSS_PATH = "@/src/assets/style/variables.scss".replace(
+  /\\/g,
+  "/"
+);
 const COMMON_PATH = path.join(__dirname, "../common/");
-const RENDERER_PATH = path.join(__dirname, "../renderer/");
+const RENDERER_PATH = __dirname;
 // https://vitejs.dev/config/
 export default defineConfig({
   mode: process.env.NODE_ENV,
@@ -41,9 +44,11 @@ export default defineConfig({
     WindiCSS(),
   ],
   base: "./",
-  alias: {
-    "@": RENDERER_PATH,
-    "@common": COMMON_PATH,
+  resolve: {
+    alias: {
+      "@": RENDERER_PATH,
+      "@common": COMMON_PATH,
+    },
   },
   build: {
     sourcemap: true,

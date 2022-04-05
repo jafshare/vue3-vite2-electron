@@ -1,11 +1,11 @@
 /** websocket请求体 */
-type WebsocketRequestBody = {
+declare type WebsocketRequestBody = {
   cmd: string;
   data: any;
   uuid?: string;
 };
 /** websocket返回 */
-type WebsocketResponseBody = {
+declare type WebsocketResponseBody = {
   cmd: string;
   data: any;
   uuid?: string;

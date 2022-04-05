@@ -27,12 +27,24 @@ export function responseTransform(data: string): WebsocketResponseBody {
  * @param originData 原始数据,保证从客户端传过来的多余字段都能够返回
  * @returns
  */
-export function wrapMessage(
+export function wrapData(
   cmd: string,
   data: any,
   originData?: Record<string, any>
 ): string {
   return requestTransform({ ...originData, cmd, data });
+}
+/**
+ * 有时候可能传输的只有一个指令，所以不需要携带其他信息，这个是简单的封装
+ * @param cmd 指令
+ * @param data 数据
+ */
+export function simpleData(cmd: string, data?: string | Record<string, any>) {
+  let extraData = data;
+  if (typeof data === "string") {
+    extraData = JSON.parse(data);
+  }
+  return { cmd, data: { ...(extraData as Record<string, any>) } };
 }
 // 校验数据是否有效
 export function isValid(data: Record<string, any>) {

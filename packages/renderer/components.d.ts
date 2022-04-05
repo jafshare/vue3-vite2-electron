@@ -4,8 +4,19 @@
 
 declare module "vue" {
   export interface GlobalComponents {
-    ElButton: typeof import("element-plus/es")["ElButton"];
+    ElAside: typeof import("element-plus/es")["ElAside"];
+    ElContainer: typeof import("element-plus/es")["ElContainer"];
+    ElHeader: typeof import("element-plus/es")["ElHeader"];
+    ElMain: typeof import("element-plus/es")["ElMain"];
+    ElPanel: typeof import("element-plus/es")["ElPanel"];
+    ElSpace: typeof import("element-plus/es")["ElSpace"];
+    ElSwitch: typeof import("element-plus/es")["ElSwitch"];
+    ElTable: typeof import("element-plus/es")["ElTable"];
+    ElTableColumn: typeof import("element-plus/es")["ElTableColumn"];
+    ElTabPane: typeof import("element-plus/es")["ElTabPane"];
+    ElTabs: typeof import("element-plus/es")["ElTabs"];
     HelloWorld: typeof import("./src/components/HelloWorld.vue")["default"];
+    Layout: typeof import("./src/components/Layout/index.vue")["default"];
   }
 }
 

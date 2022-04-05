@@ -6,8 +6,10 @@ const COMMON_PATH = path.join(__dirname, "../common/");
 
 export default defineConfig({
   root: __dirname,
-  alias: {
-    "@common": COMMON_PATH,
+  resolve: {
+    alias: {
+      "@common": COMMON_PATH,
+    },
   },
   build: {
     outDir: "../../dist/main",

@@ -1,24 +1,55 @@
+<template>
+  <Layout>
+    <template #header>
+      <el-space>
+        <el-switch
+          v-model="isProxy"
+          size="mini"
+          active-text="开启"
+          inactive-text="关闭"
+          :loading="loading"
+          @change="handleProxyChange"
+        />
+      </el-space>
+    </template>
+    <template #main><Network /></template>
+  </Layout>
+</template>
 <script setup lang="ts">
+import { onUnmounted, provide, ref } from "vue";
+import { ElMessage } from "element-plus";
+// 需要手动导入样式
+import "element-plus/es/components/message/style/css";
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from "./components/HelloWorld.vue";
+import Network from "@/src/pages/Network/index.vue";
+import Layout from "@/src/components/Layout/index.vue";
+import { CMD } from "@common/ws";
+import { SimpleWebSocket } from "./utils/websocket";
+const loading = ref(false);
+const isProxy = ref(true);
+// 启动后启动websocket
+const wsInstance = SimpleWebSocket.getInstance();
+const handleProxyChange = async (value: boolean) => {
+  loading.value = true;
+  try {
+    await wsInstance.send(
+      value ? CMD.START_PROXY_SERVER : CMD.STOP_PROXY_SERVER
+    );
+    ElMessage.success({ message: `${value ? "打开" : "关闭"}代理成功` });
+  } catch (error) {
+    console.log(error);
+    ElMessage.error({ message: `${value ? "打开" : "关闭"}代理失败` });
+  }
+  loading.value = false;
+};
+// 卸载后自动关闭
+onUnmounted(() => {
+  wsInstance.close();
+});
+// 提供ws服务
+provide("wsInstance", wsInstance);
 </script>
-
-<template>
-  <div class="logo-box">
-    <img style="height: 140px" src="./assets/electron.png" />
-    <span />
-    <img style="height: 140px" src="./assets/vite.svg" />
-    <span />
-    <img style="height: 140px" src="./assets/vue.png" />
-  </div>
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-  <div class="static-public">
-    Place static files into the <code>src/renderer/public</code> folder
-    <img style="width: 90px" :src="'./images/node.png'" />
-  </div>
-</template>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -26,30 +57,6 @@ import HelloWorld from "./components/HelloWorld.vue";
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-}
-
-.logo-box {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
-.logo-box span {
-  width: 74px;
-}
-
-.static-public {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.static-public code {
-  background-color: #eee;
-  padding: 2px 4px;
-  margin: 0 4px;
-  border-radius: 4px;
-  color: #304455;
+  @apply h-full w-full;
 }
 </style>

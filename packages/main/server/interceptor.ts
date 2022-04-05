@@ -1,6 +1,6 @@
 import { RequestDetail, ResponseDetail } from "anyproxy";
 import { WSServer } from "./wsServer";
-import { wrapMessage, CMD } from "@common/ws";
+import { wrapData, CMD } from "@common/ws";
 import { genUUID } from "@common/utils";
 const wsServer = WSServer.getInstance();
 export default {
@@ -26,7 +26,7 @@ export default {
   ) {
     console.log("返回响应:", requestDetail);
     wsServer.send(
-      wrapMessage(CMD.NEW_RECORD, {
+      wrapData(CMD.NEW_RECORD, {
         // 为每一个请求增加一个唯一id
         id: genUUID(),
         method: requestDetail.requestOptions.method,

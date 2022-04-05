@@ -16,14 +16,16 @@ const options = {
   silent: true, // 禁用默认日志输出
 };
 // 创建一个代理服务器
-const proxyServer = new AnyProxy.ProxyServer(options);
-proxyServer.on("ready", () => {
-  /* */
-});
-proxyServer.on("error", (e: Error) => {
-  /* */
-});
+let proxyServer: any;
+
 export function startProxyServer() {
+  proxyServer = new AnyProxy.ProxyServer(options);
+  proxyServer.on("ready", () => {
+    /* */
+  });
+  proxyServer.on("error", (e: Error) => {
+    /* */
+  });
   // 启动代理
   AnyProxy.utils.systemProxyMgr.enableGlobalProxy("127.0.0.1", proxyServerPort);
   // AnyProxy.utils.systemProxyMgr.disableGlobalProxy();

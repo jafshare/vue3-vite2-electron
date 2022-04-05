@@ -1,4 +1,4 @@
-import { app, BrowserWindow, shell } from "electron";
+import { app, BrowserWindow, shell, Menu } from "electron";
 import { release } from "os";
 import { join } from "path";
 import { start } from "./server";
@@ -20,9 +20,11 @@ process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
 let win: BrowserWindow | null = null;
 
 async function createWindow() {
+  // 移除默认的menu
+  Menu.setApplicationMenu(null);
   win = new BrowserWindow({
     title: "Main window",
-    width: 1000,
+    width: 1400,
     height: 700,
     webPreferences: {
       preload: join(__dirname, "../preload/index.js"),
