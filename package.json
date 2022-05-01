@@ -49,7 +49,7 @@
     "vite-plugin-resolve": "^2.0.1",
     "vite-plugin-windicss": "^1.8.3",
     "vue": "^3.2.31",
-    "vue-tsc": "^0.31.1",
+    "vue-tsc": "^0.34.11",
     "windicss": "^3.5.1"
   },
   "env": {
