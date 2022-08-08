@@ -1,0 +1,60 @@
+{
+  "name": "vue3-vite2-electron",
+  "version": "0.0.1",
+  "main": "dist/electron/main/index.js",
+  "description": "vue3-vite2-electron",
+  "author": "HunterJiang",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build && electron-builder",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "test:playwright": "npx playwright test",
+    "test:playwright:headless": "npx playwright test --headed",
+    "test:vitest": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,tsx,cjs,mjs,ts}": [
+      "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path && tsc --noEmit"
+    ]
+  },
+  "engines": {
+    "node": ">=14.17.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.24.2",
+    "@vitejs/plugin-vue": "^3.0.1",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "@vueuse/core": "^9.1.0",
+    "c8": "^7.12.0",
+    "electron": "^19.0.8",
+    "electron-builder": "^23.1.0",
+    "electron-log": "^4.4.8",
+    "eslint": "^8.21.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "husky": "^8.0.1",
+    "lodash": "^4.17.21",
+    "naive-ui": "^2.32.1",
+    "pinia": "^2.0.17",
+    "prettier": "^2.7.1",
+    "sass": "^1.54.3",
+    "typescript": "^4.7.4",
+    "unplugin-auto-import": "^0.11.1",
+    "unplugin-vue-components": "0.21.2",
+    "vite": "^3.0.3",
+    "vite-plugin-electron": "^0.8.1",
+    "vite-plugin-windicss": "^1.8.7",
+    "vitest": "^0.21.0",
+    "vue": "^3.2.37",
+    "vue-tsc": "^0.39.4",
+    "windicss": "^3.5.6"
+  }
+}
