@@ -1,4 +1,4 @@
-import { PlaywrightTestConfig } from "@playwright/test";
+import type { PlaywrightTestConfig } from "@playwright/test";
 
 const config: PlaywrightTestConfig = {
   forbidOnly: !!process.env.CI,
@@ -6,5 +6,7 @@ const config: PlaywrightTestConfig = {
   use: {
     trace: "on-first-retry",
   },
+  // 指定测试用例的目录
+  testDir: "./test/playwright/",
 };
 export default config;

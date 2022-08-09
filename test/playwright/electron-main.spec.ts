@@ -16,7 +16,7 @@ const env = {
 // 所有案例执行前启动electron
 test.beforeAll(async () => {
   electronApp = await electron.launch({
-    args: [path.resolve(__dirname, "../dist/main/index.cjs")],
+    args: [path.resolve(__dirname, "../../dist/electron/main/index.js")],
     //@ts-ignore
     env,
   });
@@ -29,7 +29,7 @@ test.afterAll(async () => {
 test("electron test case", async () => {
   const window = await electronApp.firstWindow();
   // Expect a title "to contain" a substring.
-  await expect(window).toHaveTitle(/Vite App/, { timeout: 3000 });
+  await expect(window).toHaveTitle(/Vite App/, { timeout: 6000 });
 
   // Expect an attribute "Hello Vue 3 + TypeScript + Vite" to be visible on the page.
   await expect(

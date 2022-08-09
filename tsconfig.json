@@ -31,7 +31,8 @@
     "src",
     "common",
     "typings",
-    "electron"
+    "electron",
+    "test"
   ],
   "references": [
     {
