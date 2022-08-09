@@ -39,9 +39,13 @@ export default defineConfig({
           ],
         },
       ],
+      // 设置声明文件的路径
+      dts: "./src/typings/auto-imports.d.ts",
     }),
     Components({
       resolvers: [NaiveUiResolver()],
+      // 设置声明文件的路径
+      dts: "./src/typings/components.d.ts",
     }),
     electron({
       main: {
