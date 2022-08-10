@@ -10,7 +10,7 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import { VITE_DEV_SERVER_HOST, VITE_DEV_SERVER_PORT } from "./common/env/vite";
-
+import pkg from "./package.json";
 rmSync("dist", { recursive: true, force: true }); // v14.14.0
 const GLOBAL_SCSS_PATH = "src/assets/style/variables.scss";
 const COMMON_PATH = path.join(__dirname, "common");
@@ -54,6 +54,9 @@ export default defineConfig({
           resolve,
           build: {
             outDir: "dist/electron/main",
+            rollupOptions: {
+              external: [...Object.keys((pkg as any).dependencies || {})],
+            },
           },
         }),
       },
